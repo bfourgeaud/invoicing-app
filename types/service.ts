@@ -1,5 +1,6 @@
-export interface Service {
+export interface IService {
   id:string,
   slug:string,
-  title:string
+  title:string,
+  price:number
 }

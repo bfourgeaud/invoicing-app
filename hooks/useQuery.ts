@@ -1,20 +1,15 @@
-import useSWR from 'swr';
-import graphcms from "../libs/graphcms"
-
-interface DataPaylaod<T> {
-    [key: string]: T;
-}
-
+import { fetchWrapper } from 'helpers/fetch-wrapper';
+import useSWR from 'swr'
 interface DataResponse<T> {
-    data: T | undefined;
-    isLoading: boolean;
-    isError: any;
+    data: T | undefined
+    isLoading: boolean
+    isError: any
 }
 
-function useQuery<T>(query: string, key: string, initialData?:T, ...args:any[]): DataResponse<T> {
-    const opts = initialData ? {fallbackData: {[key]:initialData}} : undefined
-    const { data: payload, error } = useSWR<DataPaylaod<T>>([query, ...args], graphcms, opts);
-    const data = payload ? payload[key] : undefined
+const fetcher = <T>(url:string):Promise<T> => fetchWrapper.get(url)
+
+function useQuery<T>(url?: string, initialData?:T): DataResponse<T> {
+    const { data, error } = useSWR<T>(url, fetcher, {fallbackData: initialData || undefined})
     return {
         data,
         isLoading: !data && !error,
@@ -22,4 +17,4 @@ function useQuery<T>(query: string, key: string, initialData?:T, ...args:any[]):
     }
 }
 
-export default useQuery;
+export default useQuery
