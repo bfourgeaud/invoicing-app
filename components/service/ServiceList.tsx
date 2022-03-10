@@ -20,4 +20,4 @@ function ServiceList() {
   )
 }
 
-export default ServiceList
+export {ServiceList}

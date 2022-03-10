@@ -3,7 +3,7 @@ import { ParsedUrlQuery } from "querystring";
 import { serviceRepo } from "queries";
 import { FallbackProps, IService } from "types";
 import { SWRConfig } from "swr";
-import { Service } from "components";
+import { Service } from "components/service";
 
 interface Props extends FallbackProps<Array<IService>> { slug: string }
 interface ContextQuery extends ParsedUrlQuery { slug: string }

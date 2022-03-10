@@ -32,7 +32,7 @@ function Service(props:Props) {
   const regenerateSlug = () => {
     if(!isAddMode) {
       const _title = getValues('title')
-      setValue('slug', slugify(_title))
+      setValue('slug', slugify(_title), { shouldValidate: true, shouldTouch: true, shouldDirty: true })
     }
   }
 
@@ -109,7 +109,7 @@ function Service(props:Props) {
       </div>}
 
       <div className="inline-group space-x-2">
-        <button className="btn btn-green inline-group" disabled={formState.isSubmitting || !formState.isDirty || !formState.isValid}>
+        <button className="btn btn-green inline-group" disabled={formState.isSubmitting || !formState.isDirty || !Object.keys(formState.touchedFields).length}>
           {formState.isSubmitting && <Icon className="fill-current w-4 h-4 mr-2" icon="eos-icons:loading" />}
           {!formState.isSubmitting && <Icon className="fill-current w-4 h-4 mr-2" icon="carbon:save" />}
           <span>Save</span>
@@ -138,4 +138,4 @@ function Service(props:Props) {
   )
 }
 
-export default Service
+export {Service}

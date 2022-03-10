@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import { serviceRepo } from "queries";
 import { FallbackProps, IService } from "types";
 import { SWRConfig } from "swr";
-import { ServiceList } from "components";
+import { ServiceList } from 'components/service'
 
 interface Props extends FallbackProps<Array<IService>> {}
 

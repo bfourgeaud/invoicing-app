@@ -1,2 +1,2 @@
-export { ServiceList } from './ServiceList'
-export { Service } from './Service'
+export * from './ServiceList'
+export * from './Service'
