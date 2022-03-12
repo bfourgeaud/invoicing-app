@@ -1,4 +1,3 @@
-import { useScreenContext } from "lib/context/ScreenContext";
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { Invoice, Item } from "types";
 import { addDays, format } from "date-fns";
@@ -7,10 +6,9 @@ import { emptyInvoice } from "lib/utils/emptyInvoice";
 import { Input } from "components/ui/Input";
 import { useInvoices } from "lib/hooks/useInvoices";
 import createInvoiceNumber from "lib/utils/createInvoiceNumber";
-import { BackButton } from "./BackButton";
 import { FormItemList } from "./FormItemList";
 import toMoney from "lib/utils/toMoney";
-import ModalShadow from "./ModalShadow";
+import FormDrawer from "components/ui/FormDrawer";
 
 interface InvoiceFormProps {
   editing?: boolean;
@@ -20,7 +18,6 @@ interface InvoiceFormProps {
 }
 
 export const InvoiceForm: FC<InvoiceFormProps> = ({editing = false, invoice, cancel, show}) => {
-  const { screenType } = useScreenContext();
   const { invoices, add, update } = useInvoices()
   const [data, setData] = useState<Invoice>(invoice || emptyInvoice());
   const [items, setItems] = useState<Array<Item>>( invoice?.items || []);
@@ -61,7 +58,7 @@ export const InvoiceForm: FC<InvoiceFormProps> = ({editing = false, invoice, can
     cancel();
   };
 
-  const handleSaveInvoice: React.FormEventHandler<HTMLFormElement> = (e) => {
+  const handleSave: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
 
     if(!editing) {
@@ -111,73 +108,43 @@ export const InvoiceForm: FC<InvoiceFormProps> = ({editing = false, invoice, can
   }
   
   return (
-    <>
-      <div className={styles.root} style={{transform: show ? "translateX(0%)" : `translateX(-100%)`}}>
-        {screenType === "phone" && <BackButton onClick={cancel} />}
-        <form className={styles.content} onSubmit={handleSaveInvoice}>
-          <div className={styles.padding}>
-            <h1>
-              {editing && invoice? (<>Edit <span>#</span>{invoice.invoiceNumber}</>) : ("New Invoice")}
-            </h1>
+    <FormDrawer cancel={handleCancel} save={handleSave} show={show} editing={editing} saveDraft={handleSaveAsDraft}>
+      <div className={styles.invoiceForm}>
+        <h1>
+          {editing && invoice? (<>Edit <span>#</span>{invoice.invoiceNumber}</>) : ("New Invoice")}
+        </h1>
 
-            <p className={styles.colorLabel}>Bill From</p>
-            <Input label="Street" value={data.senderAddress.street} data-obj="senderAddress" name="street" id="sender-street" onChange={onChange} required />
-            <div className={styles.inputGrid}>
-              <Input label="City" value={data.senderAddress.city} data-obj="senderAddress" name="city" id="sender-city" onChange={onChange} required />
-              <Input label="Post Code" value={data.senderAddress.postCode} data-obj="senderAddress" name="postCode" id="sender-postCode" onChange={onChange} required />
-              <Input label="Country" value={data.senderAddress.country} data-obj="senderAddress" name="country" id="sender-country" onChange={onChange} required />
-            </div>
+        <p className={styles.colorLabel}>Bill From</p>
+        <Input label="Street" value={data.senderAddress.street} data-obj="senderAddress" name="street" id="sender-street" onChange={onChange} required />
+        <div className={styles.inputGrid}>
+          <Input label="City" value={data.senderAddress.city} data-obj="senderAddress" name="city" id="sender-city" onChange={onChange} required />
+          <Input label="Post Code" value={data.senderAddress.postCode} data-obj="senderAddress" name="postCode" id="sender-postCode" onChange={onChange} required />
+          <Input label="Country" value={data.senderAddress.country} data-obj="senderAddress" name="country" id="sender-country" onChange={onChange} required />
+        </div>
 
-            <p className={styles.colorLabel}>Bill To</p>
-            <Input label="Client's Name" value={data.clientName} name="clientName" id="client-name" onChange={onChange} required />
-            <Input label="Client's email" value={data.clientEmail} name="clientEmail" id="client-email" onChange={onChange} required />
-            <Input label="Street" value={data.clientAddress.street} data-obj="clientAddress" name="street" id="client-street" onChange={onChange} required />
-            <div className={styles.inputGrid}>
-              <Input label="City" value={data.clientAddress.city} data-obj="clientAddress" name="city" id="client-city" onChange={onChange} required />
-              <Input label="Post Code" value={data.clientAddress.postCode} data-obj="clientAddress" name="postCode" id="client-postCode" onChange={onChange} required />
-              <Input label="Country" value={data.clientAddress.country} data-obj="clientAddress" name="country" id="client-country" onChange={onChange} required />
-            </div>
+        <p className={styles.colorLabel}>Bill To</p>
+        <Input label="Client's Name" value={data.clientName} name="clientName" id="client-name" onChange={onChange} required />
+        <Input label="Client's email" value={data.clientEmail} name="clientEmail" id="client-email" onChange={onChange} required />
+        <Input label="Street" value={data.clientAddress.street} data-obj="clientAddress" name="street" id="client-street" onChange={onChange} required />
+        <div className={styles.inputGrid}>
+          <Input label="City" value={data.clientAddress.city} data-obj="clientAddress" name="city" id="client-city" onChange={onChange} required />
+          <Input label="Post Code" value={data.clientAddress.postCode} data-obj="clientAddress" name="postCode" id="client-postCode" onChange={onChange} required />
+          <Input label="Country" value={data.clientAddress.country} data-obj="clientAddress" name="country" id="client-country" onChange={onChange} required />
+        </div>
 
-            {/*<div className={styles.dateAndTerms}>
-              <DatePicker {...datePickerProps} />
-              <SelectDropdown {...paymentTermsProps} />
-            </div>*/}
-            <Input label="Description" value={data.description} name="description" id="description" onChange={onChange} />
-            <FormItemList items={items} setItems={setItems} />
+        {/*<div className={styles.dateAndTerms}>
+          <DatePicker {...datePickerProps} />
+          <SelectDropdown {...paymentTermsProps} />
+        </div>*/}
+        <Input label="Description" value={data.description} name="description" id="description" onChange={onChange} />
+        <FormItemList items={items} setItems={setItems} />
 
-            <div className={styles.grandTotal}>
-              <h2>Total</h2>
-              <span>{toMoney(data.total)}</span>
-            </div>
-          </div>
-
-          <div className={styles.bottomControls}>
-            {editing && (
-              <>
-                {/* empty div for flexbox  */}
-                <div />
-                <div>
-                  <button className="btn btn-light" type="button" onClick={handleCancel}>Cancel</button>
-                  <button className="btn btn-purple" type="submit">Save Changes</button>
-                </div>
-              </>
-            )}
-            {!editing && (
-              <>
-                <div>
-                  <button className="btn btn-light" type="button" onClick={handleCancel}>Discard</button>
-                </div>
-                <div>
-                  <button className="btn btn-dark" type="button" onClick={handleSaveAsDraft}>Save as Draft</button>
-                  <button className="btn btn-purple" type="submit">{"Save & Send"}</button>
-                </div>
-              </>
-            )}
-          </div>
-        </form>
+        <div className={styles.grandTotal}>
+          <h2>Total</h2>
+          <span>{toMoney(data.total)}</span>
+        </div>
       </div>
-      <ModalShadow show={show} cancel={cancel} />
-    </>
+    </FormDrawer>
   )
   
 }

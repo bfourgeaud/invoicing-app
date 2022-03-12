@@ -11,7 +11,7 @@ import { useInvoices } from "lib/hooks/useInvoices";
 import { StatusBar } from "components/invoice/StatusBar";
 import { Summary } from "components/invoice/Summary";
 import { BottomControls } from "components/invoice/BottomControls";
-import { DeleteModal } from "components/invoice/DeleteModal";
+import { DeleteModal } from "components/ui/DeleteModal";
 
 const InvoicePage: React.FC = () => {
   const router = useRouter();
@@ -72,7 +72,8 @@ const InvoicePage: React.FC = () => {
       )}
       {deleting && invoice && (
         <DeleteModal
-          id={invoice.invoiceNumber as string}
+          message={`Are you sure you want to delete invoice #${invoice.invoiceNumber}? This action cannot be
+          undone.`}
           onConfirm={() => handleDeletion(invoice.id as string)}
           onCancel={deletingHandlers.off}
         />

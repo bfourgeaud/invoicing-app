@@ -1,16 +1,18 @@
 import { useScreenContext } from "lib/context/ScreenContext";
 import styles from './styles/FormDrawer.module.scss'
 import { BackButton } from "components/shared/BackButton";
-import ModalShadow from "components/shared/ModalShadow";
+import ModalShadow from "components/ui/ModalShadow";
+import { FormEventHandler, MouseEventHandler } from "react";
 
 interface FormDrawerProps {
   cancel: () => void,
-  save: () => void,
+  save: FormEventHandler<HTMLFormElement>,
+  saveDraft?: MouseEventHandler<HTMLButtonElement>,
   show: boolean,
   editing?: boolean
 }
 
-const FormDrawer:React.FC<FormDrawerProps> = ({cancel, save, show, children, editing=false}) => {
+const FormDrawer:React.FC<FormDrawerProps> = ({cancel, save, show, children, editing=false, ...props}) => {
   const { screenType } = useScreenContext();
   
   return (
@@ -39,6 +41,7 @@ const FormDrawer:React.FC<FormDrawerProps> = ({cancel, save, show, children, edi
                   <button className="btn btn-light" type="button" onClick={cancel}>Discard</button>
                 </div>
                 <div>
+                  {props.saveDraft && <button className="btn btn-dark" type="button" onClick={props.saveDraft}>Save as Draft</button>}
                   <button className="btn btn-purple" type="submit">{"Save"}</button>
                 </div>
               </>

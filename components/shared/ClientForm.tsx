@@ -4,9 +4,10 @@ import { emptyClient } from "lib/utils/emptyClient";
 import { ChangeEvent, useState } from "react";
 import { Client } from "types";
 import styles from './styles/ClientForm.module.scss'
-import ModalShadow from "./ModalShadow";
+import ModalShadow from "../ui/ModalShadow";
 import { BackButton } from "./BackButton";
 import { Input } from "components/ui/Input";
+import FormDrawer from "components/ui/FormDrawer";
 
 interface ClientFormProps {
   editing?: boolean;
@@ -67,58 +68,28 @@ const ClientForm:React.FC<ClientFormProps> = ({editing = false, client, cancel, 
 
 
   return (
-    <>
-      <div className={styles.root} style={{transform: show ? "translateX(0%)" : `translateX(-100%)`}}>
-        {screenType === "phone" && <BackButton onClick={cancel} />}
-        <form className={styles.content} onSubmit={handleSave}>
-          <div className={styles.padding}>
-            <h1>
-              {editing && client? (<>Edit : {client.firstname} {client.lastname}</>) : ("New Client")}
-            </h1>
+    <FormDrawer cancel={handleCancel} save={handleSave} show={show} editing={editing}>
+      <div className={styles.clientForm}>
+        <h1>
+          {editing && client? (<>Edit : {client.firstname} {client.lastname}</>) : ("New Client")}
+        </h1>
 
-            <div className={styles.formGroup}>
-              <Input label="First Name" placeholder="Firstname" value={data.firstname} name="firstname" id="firstname" onChange={onChange} required />
-              <Input label="Last Name" placeholder="Lastname" value={data.lastname} name="lastname" id="lastname" onChange={onChange} required />
-            </div>
-            <Input label="Email" placeholder="john.doe@example.com" value={data.email} name="email" id="email" onChange={onChange} required />
-            <Input label="Phone" placeholder="0X XX XX XX XX" value={data.phone} name="phone" id="phone" onChange={onChange} required />
+        <div className={styles.formGroup}>
+          <Input label="First Name" placeholder="Firstname" value={data.firstname} name="firstname" id="firstname" onChange={onChange} required />
+          <Input label="Last Name" placeholder="Lastname" value={data.lastname} name="lastname" id="lastname" onChange={onChange} required />
+        </div>
+        <Input label="Email" placeholder="john.doe@example.com" value={data.email} name="email" id="email" onChange={onChange} required />
+        <Input label="Phone" placeholder="0X XX XX XX XX" value={data.phone} name="phone" id="phone" onChange={onChange} required />
 
-            <p className={styles.colorLabel}>Address</p>
-            <Input label="Street" placeholder="Street" value={data.address?.street} data-obj="address" name="street" id="street" onChange={onChange} required />
-            <div className={styles.inputGrid}>
-              <Input label="City" placeholder="City" value={data.address?.city} data-obj="address" name="city" id="city" onChange={onChange} required />
-              <Input label="Post Code" placeholder="Post Code" value={data.address?.postCode} data-obj="address" name="postCode" id="postCode" onChange={onChange} required />
-              <Input label="Country" placeholder="Country" value={data.address?.country} data-obj="address" name="country" id="country" onChange={onChange} required />
-            </div>
-
-          </div>
-
-          <div className={styles.bottomControls}>
-            {editing && (
-              <>
-                {/* empty div for flexbox  */}
-                <div />
-                <div>
-                  <button className="btn btn-light" type="button" onClick={handleCancel}>Cancel</button>
-                  <button className="btn btn-purple" type="submit">Save Changes</button>
-                </div>
-              </>
-            )}
-            {!editing && (
-              <>
-                <div>
-                  <button className="btn btn-light" type="button" onClick={handleCancel}>Discard</button>
-                </div>
-                <div>
-                  <button className="btn btn-purple" type="submit">{"Save"}</button>
-                </div>
-              </>
-            )}
-          </div>
-        </form>
+        <p className={styles.colorLabel}>Address</p>
+        <Input label="Street" placeholder="Street" value={data.address?.street} data-obj="address" name="street" id="street" onChange={onChange} required />
+        <div className={styles.inputGrid}>
+          <Input label="City" placeholder="City" value={data.address?.city} data-obj="address" name="city" id="city" onChange={onChange} required />
+          <Input label="Post Code" placeholder="Post Code" value={data.address?.postCode} data-obj="address" name="postCode" id="postCode" onChange={onChange} required />
+          <Input label="Country" placeholder="Country" value={data.address?.country} data-obj="address" name="country" id="country" onChange={onChange} required />
+        </div>
       </div>
-      <ModalShadow show={show} cancel={cancel} />
-    </>
+    </FormDrawer>
   )
 }
 

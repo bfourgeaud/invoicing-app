@@ -3,12 +3,12 @@ import React from "react";
 import styles from "./styles/DeleteModal.module.scss";
 
 interface DeleteModalProps {
-  id: string;
+  message: string;
   onConfirm: () => void;
   onCancel: () => void;
 }
 
-export const DeleteModal: React.FC<DeleteModalProps> = ({ id, onConfirm, onCancel }) => {
+export const DeleteModal: React.FC<DeleteModalProps> = ({ message, onConfirm, onCancel }) => {
   
   const ref = React.useRef<HTMLDivElement>(null);
   const handleCancel: React.MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -23,8 +23,7 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({ id, onConfirm, onCance
       <div className={styles.modal} ref={ref}>
         <h1>Confirm Deletion</h1>
         <p className={styles.text}>
-          Are you sure you want to delete invoice #{id}? This action cannot be
-          undone.
+          {message}
         </p>
         <div className={styles.buttons}>
           <button className="btn btn-light" onClick={handleCancel}>Cancel</button>
