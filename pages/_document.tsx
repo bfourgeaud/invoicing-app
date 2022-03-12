@@ -5,8 +5,10 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <meta charSet="UTF-8" />
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-        <meta name="theme-color" content="#ffffff" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="/icon.png" />
+        <link rel="manifest" href="/manifest.webmanifest" />
+        <meta name="theme-color" content="#644bc9" />
       </Head>
       <body>
         <Main />
