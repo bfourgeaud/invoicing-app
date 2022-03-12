@@ -134,7 +134,7 @@ export const InvoiceForm: FC<InvoiceFormProps> = ({editing = false, invoice, can
             <div className={styles.inputGrid}>
               <Input label="City" value={data.clientAddress.city} data-obj="clientAddress" name="city" id="client-city" onChange={onChange} required />
               <Input label="Post Code" value={data.clientAddress.postCode} data-obj="clientAddress" name="postCode" id="client-postCode" onChange={onChange} required />
-              <Input label="Country" value={data.clientAddress.country} data-obj="clientAddress" name="country" id="client-postCode" onChange={onChange} required />
+              <Input label="Country" value={data.clientAddress.country} data-obj="clientAddress" name="country" id="client-country" onChange={onChange} required />
             </div>
 
             {/*<div className={styles.dateAndTerms}>

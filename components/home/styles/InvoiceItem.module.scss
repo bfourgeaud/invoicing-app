@@ -1,7 +1,7 @@
 @import 'styles/mixins';
 
 .root {
-  @apply w-full bg-$content-bg mb-4 p-6 rounded-lg shadow-lg cursor-pointer transition-all duration-300 ease border border-transparent
+  @apply w-full bg-$content-bg mb-4 p-6 rounded-lg shadow-md cursor-pointer transition-all duration-300 ease border border-transparent
          hover:(shadow-none border-$purple)
          tablet:(flex items-center justify-between);
 }

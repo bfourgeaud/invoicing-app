@@ -22,7 +22,7 @@ export const InvoiceItem: React.FC<InvoiceItemProps> = ({ invoice, screenType })
   const currencyString = currencyFmt.format(invoice.total);
 
   return (
-    <div className={styles.root} onClick={() => router.push(`/invoice/${invoice.id}`)}>
+    <li className={styles.root} onClick={() => router.push(`/invoice/${invoice.id}`)}>
       <div className={styles.itemOverview}>
         <p className={styles.itemId}>
           <span>#</span>
@@ -56,6 +56,6 @@ export const InvoiceItem: React.FC<InvoiceItemProps> = ({ invoice, screenType })
             <Icon width={20} height={20} icon="ic:round-chevron-right" />
         </div>
       </div>
-    </div>
+    </li>
   )
 }
