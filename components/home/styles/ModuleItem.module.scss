@@ -1,0 +1,15 @@
+.wrapper {
+  @apply p-6 list-none bg-$content-bg rounded-xl text-$themedPurple shadow-lg cursor-pointer border border-transparent
+         hover:(shadow-none border-$themedPurple);
+
+  .content {
+    @apply flexbox flex-col space-y-2;
+  }
+}
+
+.disabled {
+  @apply bg-$bg-disabled shadow-md cursor-not-allowed;
+  a {
+    @apply pointer-events-none;
+  }
+}

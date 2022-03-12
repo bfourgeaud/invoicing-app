@@ -12,7 +12,7 @@ const nextConfig = withPWA({
     disable: process.env.NODE_ENV === "development",
   },
   images: {
-    domains: ['media.graphcms.com'],
+    domains: ['media.graphcms.com', 'lh3.googleusercontent.com'],
   },
   webpack(config) {
     config.plugins.push(new WindiCSSWebpackPlugin())

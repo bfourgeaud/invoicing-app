@@ -1,0 +1,12 @@
+@import "./mixins";
+
+.main {
+  @include page;
+}
+
+.content {
+  @include container;
+  h1 {
+    @apply my-6;
+  }
+}

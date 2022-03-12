@@ -1,0 +1,11 @@
+.root {
+  @apply text-$purple font-bold text-3xl flexbox flex-col space-y-2;
+
+  &.UP { @apply text-$paidText; }
+  &.FLAT { @apply text-$orange; }
+  &.DOWN { @apply text-$burntSienna }
+
+  .trend {
+    @apply text-sm inline-flex items-center space-x-2;
+  }
+}

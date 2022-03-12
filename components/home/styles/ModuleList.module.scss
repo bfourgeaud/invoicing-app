@@ -1,0 +1,12 @@
+@import 'styles/mixins';
+
+.wrapper {
+  @include container;
+  h1 {
+    @apply text-center mb-8 py-8;
+  }
+}
+
+.list {
+  @apply grid grid-cols-2 gap-4;
+}

@@ -1,0 +1,9 @@
+.root {
+  @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  p-4 flexbox flex-col bg-$content-bg p-8 rounded-lg;
+
+  .header {
+    @apply border-b mb-6 pb-6;
+    em { @apply text-sm text-$subtitle; }
+    h2 { @apply mb-2 text-3xl text-center; }
+  }
+}

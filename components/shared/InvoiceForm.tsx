@@ -10,6 +10,7 @@ import createInvoiceNumber from "lib/utils/createInvoiceNumber";
 import { BackButton } from "./BackButton";
 import { FormItemList } from "./FormItemList";
 import toMoney from "lib/utils/toMoney";
+import ModalShadow from "./ModalShadow";
 
 interface InvoiceFormProps {
   editing?: boolean;
@@ -180,21 +181,3 @@ export const InvoiceForm: FC<InvoiceFormProps> = ({editing = false, invoice, can
   )
   
 }
-
-const ModalShadow = ({ show, cancel }: { show: boolean; cancel: () => void; }) => {
-  
-  useEffect(() => {
-    if(show) document.body.classList.add('overflow-hidden')
-    else document.body.classList.remove('overflow-hidden')
-  }, [show])
-
-  return (
-  <div
-    className={styles.darkOut}
-    onClick={cancel}
-    style={{
-      opacity: show ? 1 : 0,
-      transform: show ? "translateX(0%)" : `translateX(-100%)`,
-    }}
-  />
-)};

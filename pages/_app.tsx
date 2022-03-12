@@ -1,5 +1,6 @@
 import 'windi.css'
 import "styles/globals.scss";
+import { SessionProvider } from "next-auth/react"
 import type { AppProps } from 'next/app'
 import { ThemeProvider } from 'lib/context/ThemeContext';
 import { ScreenProvider } from 'lib/context/ScreenContext';
@@ -9,8 +10,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return(
   <ThemeProvider>
     <ScreenProvider>
-      <Header />
-      <Component {...pageProps} />
+      <SessionProvider session={session}>
+        <Header />
+        <Component {...pageProps} />
+      </SessionProvider>
     </ScreenProvider>
   </ThemeProvider>
 )}

@@ -1,7 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Head from "next/head";
-import { GetServerSideProps } from 'next';
-import { invoiceService } from "services";
 import { useRouter } from "next/router";
 import { Invoice } from "types";
 import { useScreenContext } from "lib/context/ScreenContext";

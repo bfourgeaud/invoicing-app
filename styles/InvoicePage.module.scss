@@ -1,5 +1,9 @@
+@import './mixins';
+
 .main {
-  @apply relative bg-$main-bg min-h-screen pb-24 pt-18 desktop:(pl-26 pt-12)
+  @include page;
 }
 
-.root { @apply p-6;}
+.root {
+  @apply p-6;
+}

@@ -1,0 +1,17 @@
+@import "styles/mixins";
+
+.root {
+  @apply fixed left-0 top-[4.5rem] h-[calc(100vh-4.5rem)] bottom-0 bg-$main-bg w-full transition-transform duration-300 ease z-2 overflow-y-auto
+         tablet:(max-w-[619px])
+         desktop:(max-w-[calc(719px+6.5rem)] inset-0 h-screen pl-26);
+}
+
+.padding { @apply px-6; }
+.content { @apply relative tablet:pt-6; }
+
+.bottomControls {
+  @apply h-20 w-full relative flex flex-nowrap items-center bottom-0 left-0 justify-end px-6 mt-14 tablet:(pb-8 justify-between);
+  button {
+    @apply ml-2;
+  }
+}

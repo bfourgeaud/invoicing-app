@@ -1,0 +1,11 @@
+.button {
+  @apply flexbox bg-[#4285f4] border border-[#4285f4] text-white h-12 shadow-lg text-base leading-10 rounded-md hover:(shadow-none);
+
+  .logo {
+    @apply bg-white h-full w-12 flexbox rounded-l-md;
+  }
+
+  .text {
+    @apply text-white font-semibold tracking-tighter px-4 whitespace-nowrap;
+  }
+}

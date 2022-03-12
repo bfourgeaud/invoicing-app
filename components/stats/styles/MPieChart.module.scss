@@ -1,0 +1,12 @@
+.root {
+  @apply overflow-hidden;
+  ul {
+    @apply text-sm; 
+  }
+
+  .recharts-pie-labels {
+    text {
+      @apply text-blue-500;
+    }
+  }
+}

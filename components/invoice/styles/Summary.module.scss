@@ -6,8 +6,7 @@
 }
 
 .summaryTop {
-  @apply flex items-start flex-col mb-8
-         tablet:(items-start flex-row justify-between);
+  @apply flex items-start justify-between mb-8;
 }
 
 .id {

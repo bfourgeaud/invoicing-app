@@ -13,10 +13,6 @@
   @apply px-6;
 }
 
-.darkOut {
-  @apply bg-[rgba(0,0,0,0.5)] w-full fixed inset-0 z-1 h-screen;
-}
-
 .content {
   @apply relative tablet:pt-6;
   h1 {

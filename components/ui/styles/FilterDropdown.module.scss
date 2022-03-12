@@ -13,7 +13,7 @@
   }
 
   .dropdown {
-    @apply absolute bg-$content-bg rounded-lg w-48 h-auto top-full left-[30%] transform -translate-x-1/2 flex flex-col p-6 pb-2 mt-6 shadow-md;
+    @apply absolute bg-$content-bg rounded-lg w-48 h-auto top-full left-[30%] transform -translate-x-1/2 flex flex-col p-6 pb-2 mt-6 shadow-md z-20;
     div {
       @apply mb-3;
     }

@@ -1,0 +1,18 @@
+.card {
+  @apply bg-$content-bg rounded-lg shadow cursor-pointer border border-transparent
+         hover:(shadow-none border-$purple);
+
+  .cardHeader {
+    @apply relative p-4 h-full flex items-center justify-start space-x-4 leading-3 whitespace-nowrap;
+    div { @apply first:flex-shrink-0; }
+    img { @apply rounded-full; }
+
+    .clientContact{
+      p { @apply text-xs my-0 text-$subtitle; }
+    }
+
+    .warning {
+      @apply absolute top-0 right-0 inline-flex p-2 text-$orange;
+    }
+  }
+}

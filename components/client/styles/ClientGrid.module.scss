@@ -1,0 +1,18 @@
+@import "styles/mixins";
+
+.grid {
+  @include container;
+  @apply grid grid-cols-1 gap-4
+         tablet:(grid-cols-2);
+}
+
+.emptyRoot {
+  @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-64 p-4 text-center flexbox flex-col;
+  img, svg { @apply mb-12; }
+  h2 { @apply mb-6; }
+}
+
+.emptyText {
+  @include normalText();
+  @apply text-$baliHai;
+}

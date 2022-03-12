@@ -6,6 +6,13 @@ export type ToggleHandlers = {
 
 export type ScreenType = "phone" | "tablet" | "desktop";
 
+export type ModuleDef = {
+  label: string,
+  icon: string,
+  link: string,
+  disabled?: boolean
+}
+
 export type Filters = {
   [key: string] : FilterType
 }
@@ -16,6 +23,21 @@ export type FilterType = {
   value: boolean;
   onChange: () => void;
 };
+
+export type ClientState = 'ERROR' | "WARNING" | "OK"
+export interface Client {
+  id?: string,
+  firstname?: string,
+  lastname?:string
+  email: string,
+  phone?:string,
+  picture?: {
+    url:string
+  },
+  address?: Address,
+  isSelf?: boolean,
+  state?: ClientState,
+}
 
 export type Item = {
   name: string;

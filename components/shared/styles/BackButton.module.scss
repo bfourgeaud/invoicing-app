@@ -2,6 +2,7 @@
 
 .backBtnWrapper {
   @apply py-8 px-6;
+  @include container;
 }
 
 .backBtn {

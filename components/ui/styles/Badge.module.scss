@@ -1,0 +1,7 @@
+.main {
+  @apply w-5 h-5 text-xs p-1 flexbox text-white font-semibold;
+}
+
+.danger { @apply bg-$overdueBg text-$overdueText; }
+.success { @apply bg-$paidBg text-$paidText; }
+.warning { @apply bg-$pendingBg text-$pendingText; }

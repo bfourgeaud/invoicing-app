@@ -1,3 +1,6 @@
+$tablet: 768px;
+$desktop: 1440px;
+
 @mixin normalText {
   font-size: 0.75rem;
   line-height: 0.9375rem;
@@ -24,4 +27,20 @@
   white-space: nowrap;
   @include normalText;
   font-weight: bold;
+}
+
+@mixin page {
+  background-color: var(--main-bg);
+  padding-bottom: 6rem;
+  padding-top: 6.5rem;
+  min-height: 100vh;
+
+  @media (min-width: $tablet) {
+    padding-top: 4.5rem;
+  }
+
+  @media (min-width: $desktop) {
+    padding-top: 0;
+    padding-left: 6.5rem;
+  }
 }

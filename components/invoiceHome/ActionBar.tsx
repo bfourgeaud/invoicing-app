@@ -26,7 +26,7 @@ export const ActionBar: React.FC<ActionBarProps> = ({ screenType, filterHandlers
       </div>
       <div className={styles.actionControls}>
         <FilterDropdown screenType={screenType} filters={filterHandlers} />
-        <PlusButton screenType={screenType} onClick={handleNewInvoice} />
+        <PlusButton contentType="Invoice" screenType={screenType} onClick={handleNewInvoice} />
       </div>
     </div>
   )

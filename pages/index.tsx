@@ -1,94 +1,24 @@
-import Head from "next/head";
-import { useThemeContext } from 'lib/context/ThemeContext';
-import { useScreenContext } from "../lib/context/ScreenContext";
-import type { NextPage } from 'next'
-import styles from 'styles/Home.module.scss'
-import { ActionBar } from "components/home/ActionBar";
-import { useToggle } from "lib/hooks/useToggle";
-import { useEffect, useState } from "react";
-import { ItemStatus } from "types";
-import { InvoiceForm } from "components/shared/InvoiceForm";
-import { InvoiceList } from "components/home/InvoiceList";
+import ModuleList from "components/home/ModuleList"
+import { NextPage } from "next"
+import Link from "next/link"
+import styles from "styles/HomePage.module.scss"
 
-const Home: NextPage = () => {
-  const { dark } = useThemeContext()
-  const { screenType } = useScreenContext()
-  const [isModalOpen, modalHandler] = useToggle()
-  
-  const [draftFilter, draftFilterHandler] = useToggle()
-  const [pendingFilter, pendingFilterHandler] = useToggle()
-  const [paidFilter, paidFilterHandler] = useToggle()
-  const [overdueFilter, overdueFilterHandler] = useToggle()
-
-  const [activeFilters, setActiveFilters] = useState<Array<ItemStatus>>([])
-
-  const updateFiltersEffect = () => {
-    let filters: ItemStatus[] = [];
-
-    if (draftFilter) filters.push("DRAFT");
-    if (paidFilter) filters.push("PAID");
-    if (pendingFilter) filters.push("PENDING");
-    if (overdueFilter) filters.push("OVERDUE");
-
-    setActiveFilters(filters);
-  }
-
-  useEffect(updateFiltersEffect, [
-    paidFilter,
-    pendingFilter,
-    draftFilter,
-    overdueFilter
-  ])
-  
-  const filterHandlers = {
-    draft: {
-      name: 'draft',
-      label: 'Draft',
-      value: draftFilter,
-      onChange: () => draftFilterHandler.toggle(),
-    },
-    pending: {
-      name: 'pending',
-      label: 'Pending',
-      value: pendingFilter,
-      onChange: () => pendingFilterHandler.toggle(),
-    },
-    paid: {
-      name: 'paid',
-      label: 'Paid',
-      value: paidFilter,
-      onChange: () => paidFilterHandler.toggle(),
-    },
-    overdue: {
-      name: 'overdue',
-      label: 'Overdue',
-      value: overdueFilter,
-      onChange: () => overdueFilterHandler.toggle(),
-    },
-  }
-
+const HomePage: NextPage = () => {
+  const modules = [
+    { label:"Invoices", link: '/invoices', icon:"ic:round-euro" },
+    { label:"Products", link: '/products', icon:"ic:twotone-storefront", disabled:true },
+    { label:"Clients", link: '/clients',icon:"ic:round-person" },
+    { label:"Calendrier", link: '/calendar',icon:"ic:round-calendar-month", disabled:true },
+    { label:"Messages", link: '/messages',icon:"ic:round-email", disabled:true },
+    { label:"Stats", link: '/stats', icon:"ic:baseline-bar-chart" },
+    { label:"Assistance", link: '/help', icon:"ic:round-headset-mic", disabled:true },
+    { label:"Params", link: '/params',icon:"ic:round-settings", disabled:true }
+  ]
   return (
-    <>
-      <main role="main" className={styles.main}>
-        <Head>
-          <title>Home | Invoicing App</title>
-          <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover' />
-          <meta name="description" content="A simple website to manage Invoices" key="description" />
-        </Head>
-        <ActionBar
-          screenType={screenType}
-          filterHandlers={filterHandlers}
-          handleNewInvoice={modalHandler.on}
-        />
-        <InvoiceList filters={activeFilters} screenType={screenType} />
-      </main>
-      <InvoiceForm
-        show={isModalOpen}
-        cancel={modalHandler.off}
-        editing={false}
-      />
-    </>
+    <main role="main" className={styles.main}>
+      <ModuleList modules={modules} />
+    </main>
   )
 }
 
-export default Home
+export default HomePage

@@ -25,6 +25,7 @@
   --main-bg:#f8f8fb;
   --content-bg:#fff;
   --content-bg-alt:var(--offWhite);
+  --bg-disabled: "#dedede";
 
   /* Component Specifics */
   --checkbox: var(--selago);
@@ -44,10 +45,10 @@
   --overdueText: #FA8072;
   --overdueBg: rgba(250,128,114,0.0571);
 
-
   /* Texts */
   --text: #374151;
   --subtext: var(--darkAccent);
+  --themedPurple: var(--purple);
 }
 
 [data-theme='dark'] {
@@ -58,8 +59,8 @@
   --otherDark:var(--vulcan);
 
   /* Component Specifics */
-  --checkbox: var(--mirage);
-  --input-bg: var(--mirage);
+  --checkbox: var(--darkAccent);
+  --input-bg: var(--ebony);
   --input-border: var(--ebony);
 
   --draftText: var(--offWhite);
@@ -68,4 +69,5 @@
   /* Texts */
   --text: var(--offWhite);
   --subtext: var(--selago);
+  --themedPurple: #ab96ff;
 }
