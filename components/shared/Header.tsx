@@ -1,4 +1,3 @@
-import { signOut, useSession } from "next-auth/react";
 import { Icon } from "@iconify/react";
 import { useThemeContext } from "lib/context/ThemeContext";
 import { useToggle } from "lib/hooks/useToggle";
@@ -10,7 +9,6 @@ import styles from "./styles/Header.module.scss";
 interface HeaderProps {}
 
 export const Header: React.FC<HeaderProps> = ({}) => {
-  const { data: session } = useSession()
   const { dark, toggleTheme } = useThemeContext();
   const [menuOpen, menuHandler] = useToggle(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -42,7 +40,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
           </button>
         </div>
         <div className={styles.avatarWrapper}>
-          <Image height={32} width={32} src={session?.user?.image ? session.user.image : '/assets/image-avatar.jpg'} alt="Avatar" />
+          <Image quality={40} height={32} width={32} src={'/assets/image-avatar.jpg'} alt="Avatar" />
         </div>
       </div>
     </header>
