@@ -1,0 +1,44 @@
+// <header> element
+.headerRoot {
+  @apply bg-$ebony h-18 w-full flex items-center justify-between fixed z-2 top-0 desktop:(h-screen left-0 w-26 flex-col rounded-r-3xl z-3);
+}
+
+// theme button and avatar wrapper
+.headerControls {
+  @apply flex items-center h-full desktop:(flex-col w-full h-auto);
+}
+
+.headerMenu {
+  @apply flexbox h-full space-x-2 list-none desktop:(flex-col space-x-0 space-y-2);
+  li {
+    @apply bg-$purple hover:bg-$heliotrope text-white w-16 h-16 flexbox rounded-3xl cursor-pointer;
+  }
+}
+
+// button
+.themeToggleBtn {
+  @apply bg-none border-none p-1 text-$shipCove hover:(text-$selago);
+}
+
+.themeBtnWrapper {
+  @apply border-r border-$darkAccent flexbox h-full desktop:(border-r-0 border-b w-full);
+}
+
+.themeBtnWrapper,
+.avatarWrapper {
+  @apply min-w-20 flexbox relative h-full tablet:(w-24) desktop:(w-full h-22)
+}
+
+.avatarWrapper img {
+  @apply rounded-full cursor-pointer;
+}
+
+.headerLogoRoot {
+  @apply bg-$purple w-18 h-18 flexbox rounded-r-3xl relative overflow-hidden cursor-pointer
+  desktop:(w-full h-26)
+  after:(content-[''] w-full h-24 absolute bg-$heliotrope rounded-tl-3xl rounded-br-3xl top-1/2 transition-all duration-300 ease)
+  hover:after:top-1/10;
+  svg {
+    @apply z-2;
+  }
+}

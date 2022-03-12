@@ -1,0 +1,12 @@
+@import 'styles/mixins';
+
+.backBtnWrapper {
+  @apply py-8 px-6;
+}
+
+.backBtn {
+  @include normalText();
+  @apply bg-transparent border-none hover:text-$baliHai focus:text-$baliHai flexbox;
+  span { @apply font-bold; }
+  svg { @apply mr-2 text-$purple; }
+}

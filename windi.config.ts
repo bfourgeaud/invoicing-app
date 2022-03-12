@@ -11,7 +11,8 @@ export default defineConfig({
   },
   plugins: [
     require('windicss/plugin/line-clamp'),
-    require('windicss/plugin/aspect-ratio')
+    require('windicss/plugin/aspect-ratio'),
+    require('windicss/plugin/typography')
   ],
   shortcuts: {
     'content': 'max-w-4xl mx-auto',
@@ -20,11 +21,31 @@ export default defineConfig({
     'inputError': 'text-red-500 text-xs italic',
     'bg-image': 'bg-no-repeat bg-cover bg-center',
     'flexbox': 'flex items-center justify-center',
-    'btn': 'font-semibold py-2 px-4 rounded focus:(outline-none shadow-outline) disabled:(opacity-50 cursor-not-allowed)',
     'inline-group': 'inline-flex items-center',
     'btn-blue': 'bg-blue-500 hover:(bg-blue-700) text-white',
     'btn-green': 'bg-teal-500 hover:(bg-teal-700) text-white',
-    'btn-orange': 'bg-amber-500 hover:(bg-amber-700) text-white',
-    'btn-red': 'bg-red-500 hover(bg-red-700) text-white'
+    'btn-orange': 'bg-$burntSienna hover:bg-[#ff9797] text-white',
+    'btn-red': 'bg-red-500 hover(bg-red-700) text-white',
+    
+    'btn': 'h-12 px-6 border-none transition-all duration-200 ease whitespace-nowrap font-bold text-xs leading-4 tracking-tight rounded-3xl',
+    'btn-purple' : 'bg-$purple text-white hover:bg-$heliotrope',
+    'btn-light': 'bg-[#f9fafe] text-$shipCove hover:bg-$selago',
+    'btn-dark': 'bg-[#373b53] text-$baliHai hover:bg-$vulcan',
+    'btn-long': 'bg-[#f9fafe] text-$shipCove w-full'
   },
+  theme: {
+    screens: {
+      tablet: '768px',
+      laptop: '1024px',
+      desktop: '1440px'
+    },
+    extend: {
+      scale: {
+        flip: '-1'
+      },
+      content: {
+        checkbox: 'url("/assets/icon-check.svg")'
+      }
+    }
+  }
 })

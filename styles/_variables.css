@@ -1,0 +1,71 @@
+:root {
+  /* Globals */
+  --purple: #7c5dfa;
+  --heliotrope: #9277ff;
+  --mirage: #1e2139;
+  --ebony: #252945;
+  --selago: #dfe3fa;
+  --baliHai: #888eb0;
+  --shipCove: #7e88c3;
+  --vulcan: #0c0e16;
+  --burntSienna: #ec5757;
+  --monaLisa: #ff9797;
+  --whisper: #f8f8fb;
+  --offWhite: #f9fafe;
+  --mirage2: #141625;
+  --darkAccent: #494e6e;
+  --orange: #ff8f00;
+  --fadedOrange: rgba(255, 143, 0, 0.0571);
+  --otherDark: #373b53;
+
+  --tablet: 768px;
+  --desktop: 1440px;
+
+  /* Backgrounds*/
+  --main-bg:#f8f8fb;
+  --content-bg:#fff;
+  --content-bg-alt:var(--offWhite);
+
+  /* Component Specifics */
+  --checkbox: var(--selago);
+  --input-bg: var(--content-bg);
+  --input-border: var(--selago);
+
+  /* Status Indicators */
+  --draftText: #373b53;
+  --draftBg: rgba(55,59,83,0.0571);
+
+  --paidText: #33d69f;
+  --paidBg: rgba(51,214,159,0.0571);
+
+  --pendingText: var(--orange);
+  --pendingBg: rgba(255, 143, 0, 0.0571);
+
+  --overdueText: #FA8072;
+  --overdueBg: rgba(250,128,114,0.0571);
+
+
+  /* Texts */
+  --text: #374151;
+  --subtext: #7e88c3;
+}
+
+[data-theme='dark'] {
+  /* Backgrounds*/
+  --main-bg:#141625;
+  --content-bg:var(--mirage);
+  --content-bg-alt:var(--ebony);
+  --otherDark:var(--vulcan);
+
+  /* Component Specifics */
+  --checkbox: var(--mirage);
+  --input-bg: var(--mirage);
+  --input-border: var(--ebony);
+
+  --draftText: var(--offWhite);
+  --draftBg: rgba(223, 227, 250, 0.0571);
+
+  /* Texts */
+  --text: var(--offWhite);
+  --subtext: var(--selago);
+}

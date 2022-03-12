@@ -1,0 +1,9 @@
+.root {
+  @apply bg-$purple border-none text-white h-11 w-22 font-bold rounded-3xl flex items-center justify-end pr-3 relative text-xs tracking-tight group
+        hover:(bg-$heliotrope)
+        tablet:(w-37 pr-4 h-12);
+  
+  span {
+    @apply absolute left-1 w-8 h-8 bg-white stroke-2 flexbox rounded-full tablet:left-2 text-$purple group-hover:bg-$heliotrope;
+  }
+}

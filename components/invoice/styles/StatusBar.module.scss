@@ -1,0 +1,15 @@
+@import 'styles/mixins';
+
+.root {
+  @apply flex items-center justify-between bg-$content-bg mx-auto p-8 rounded-lg shadow-lg;
+  @include container;
+}
+
+.statusText {
+  @include normalText;
+  @apply text-$subtext;
+}
+
+.statusInfo {
+  @apply flex items-center justify-between w-full tablet:(justify-start);
+}

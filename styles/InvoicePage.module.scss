@@ -1,0 +1,5 @@
+.main {
+  @apply relative bg-$main-bg min-h-screen pb-24 pt-18 desktop:(pl-26 pt-12)
+}
+
+.root { @apply p-6;}

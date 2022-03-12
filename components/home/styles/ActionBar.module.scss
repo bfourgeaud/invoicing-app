@@ -1,0 +1,18 @@
+@import "styles/mixins";
+
+.container {
+  @include container;
+  @apply flex items-center justify-between mb-9 tablet:(my-14) desktop:(mt-0 pt-18);
+  .heading {
+    @apply mb-2 tablet:(mb-4);
+  }
+
+  .invoiceOverview {
+    @include normalText();
+    @apply text-$subtext;
+  }
+
+  .actionControls {
+    @apply flex items-center;
+  }
+}

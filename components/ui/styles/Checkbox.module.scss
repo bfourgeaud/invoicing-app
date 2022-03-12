@@ -1,0 +1,20 @@
+.root {
+  @apply flex items-center;
+
+  input[type="checkbox"] {
+    @apply cursor-pointer opacity-0 absolute pointer-events-none;
+  }
+
+  label {
+    @apply cursor-pointer flex items-center font-bold select-none text-xs whitespace-nowrap
+           before:(content-[''] w-4 h-4 rounded-sm mr-3 mb-1 bg-$checkbox border border-$checkbox);
+  }
+
+  input[type="checkbox"]:checked + label::before {
+    @apply content-checkbox bg-$purple flexbox text-white border border-$purple
+  }
+
+  &:hover label::before {
+    @apply border border-$purple;
+  }
+}

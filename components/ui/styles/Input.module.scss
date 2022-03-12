@@ -1,0 +1,19 @@
+@import "styles/mixins";
+
+.input {
+  @apply w-full h-12 px-5 rounded-[0.25rem] border border-$input-border font-bold bg-$input-bg focus:(border-$purple);
+  @include normalText;
+}
+
+.label {
+  @apply block mb-3 text-$subtext;
+  @include normalText;
+}
+
+.root {
+  @apply mb-6 relative;
+}
+
+.invalidLabel {
+  @apply text-[#ec5757] tracking-tight leading-4 absolute text-[0.625rem] right-0 -top-[1%];
+}

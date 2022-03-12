@@ -1,0 +1,20 @@
+.itemList {
+  @apply mt-18 tablet:mt-6;
+  h2 {
+    @apply text-lg leading-8 tracking-tight text-$purple mb-6;
+  }
+}
+
+.addNewBtn { @apply btn btn-long mb-8 flexbox space-x-1 bg-$content-bg; }
+
+.priceInfo {
+  @apply grid place-items-center justify-center grid-cols-[25%,25%,1fr,auto] gap-4 mb-12
+         tablet:(mb-4);
+  input {  @apply pr-0 disabled:(border-none bg-transparent text-right p-0); }
+  button { @apply border-none bg-transparent; }
+  div { @apply tablet:(mb-4); }
+}
+
+.item { @apply block tablet:(flex); }
+.nameInput { @apply tablet:(min-w-[214px] mr-4 mb-4); }
+.deleteBtn { @apply text-$shipCove hover:( transition-colors duration-300 ease text-$burntSienna); }

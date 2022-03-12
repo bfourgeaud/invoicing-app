@@ -1,0 +1,43 @@
+@import 'styles/mixins';
+
+.root { @apply w-full bg-$content-bg rounded-lg overflow-hidden; }
+.padding { @apply p-6 pl-0; }
+.item { @apply flex items-center justify-between mb-7; }
+
+.itemName,
+.quantityAndPrice,
+.total {
+  @include normalText;
+  @apply font-bold;
+}
+
+.itemName { @apply mb-3 tablet:(mb-0); }
+.quantityAndPrice { @apply text-$shipCove; }
+.subTotal { @apply px-8 py-6 flex items-center justify-between bg-$otherDark text-white rounded-b-lg; }
+.totalLabel {  @include smallText; }
+
+.receiptTable {
+  @apply w-full p-8 bg-$content-bg-alt rounded-t-lg border-separate;
+
+  thead tr td {
+    @include smallText;
+    @apply font-semibold text-right first:text-left;
+  }
+
+  tbody tr td {
+    @include smallText;
+    @apply text-right;
+    &:first-child {
+      @include normalText;
+      @apply font-bold text-left;
+    }
+  }
+
+  thead::after {
+    @apply h-5 table-row content-[''];
+  }
+
+  tbody tr {
+    @apply after:(h-10 table-row content-['']);
+  }
+}

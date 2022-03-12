@@ -1,0 +1,46 @@
+@import 'styles/mixins';
+
+.root {
+  @apply w-full bg-$content-bg mb-4 p-6 rounded-lg shadow-lg cursor-pointer transition-all duration-300 ease border border-transparent
+         hover:(shadow-none border-$purple)
+         tablet:(flex items-center justify-between);
+}
+
+.itemOverview {
+  @apply flex items-center justify-between mb-6 tablet:(mb-0 mr-8);
+}
+
+.itemInfo {
+  @apply flex items-center justify-between tablet:(w-6/10);
+}
+
+.itemId {
+  @include normalText();
+  @apply font-bold tablet:mr-7;
+  span { @apply text-$shipCove; }
+}
+
+.clientName {
+  @include normalText();
+  @apply text-$subtext;
+}
+
+.dateAndAmount {
+  @apply text-$shipCove tablet:(flex items-center justify-between w-full);
+}
+
+.amount {
+  @apply text-base leading-loose text-$text font-bold tracking-tight;
+}
+
+.date {
+  @include smallText();
+  @apply mb-1 text-$subtext tablet:(mb-0);
+}
+
+.indicatorWrapper {
+  @apply flex items-center justify-end;
+  svg {
+    @apply ml-4 hidden text-$purple tablet:(inline-block)
+  }
+}

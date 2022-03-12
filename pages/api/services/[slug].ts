@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { serviceRepo } from 'queries';
-import { IService } from 'types';
+import { serviceRepo } from 'services';
+import { Product } from 'types';
 
 interface Error {
   message: unknown
@@ -8,7 +8,7 @@ interface Error {
 
 export default handler;
 
-function handler(req:NextApiRequest, res:NextApiResponse<IService | Error> ) {
+function handler(req:NextApiRequest, res:NextApiResponse<Product | Error> ) {
     switch (req.method) {
         case 'GET':
             return get()

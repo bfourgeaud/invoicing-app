@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { serviceRepo } from 'services'
-import { Product } from 'types'
+import { invoiceService } from 'services'
+import { Invoice } from 'types'
 
 interface Error {
   message: unknown
@@ -8,7 +8,7 @@ interface Error {
 
 export default handler
 
-function handler(req:NextApiRequest, res:NextApiResponse<Product | Array<Product> | Error>) {
+function handler(req:NextApiRequest, res:NextApiResponse<Invoice | Array<Invoice> | Error>) {
     switch (req.method) {
         case 'GET':
             return get();
@@ -19,14 +19,14 @@ function handler(req:NextApiRequest, res:NextApiResponse<Product | Array<Product
     }
 
     async function get() {
-        const services = await serviceRepo.getAll();
-        return res.status(200).json(services);
+        const invoices = await invoiceService.getAll();
+        return res.status(200).json(invoices);
     }
     
     async function create() {
         try {
-          const service = await serviceRepo.create(req.body);
-          return res.status(200).json(service);
+          const invoice = await invoiceService.create(req.body);
+          return res.status(200).json(invoice);
         } catch (error) {
           return res.status(400).json({ message: error });
         }

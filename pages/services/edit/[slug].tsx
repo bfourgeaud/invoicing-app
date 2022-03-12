@@ -1,17 +1,16 @@
 import { GetServerSideProps, NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { serviceRepo } from "queries";
-import { FallbackProps, IService } from "types";
+import { serviceRepo } from "services";
+import { FallbackProps, Product } from "types";
 import { SWRConfig } from "swr";
-import { Service } from "components/service";
 
-interface Props extends FallbackProps<Array<IService>> { slug: string }
+interface Props extends FallbackProps<Array<Product>> { slug: string }
 interface ContextQuery extends ParsedUrlQuery { slug: string }
 
 const ServicePage: NextPage<Props> = ({ fallback, slug }) => {
   return (
     <SWRConfig value={{ fallback }}>
-      <Service slug={slug} />
+      {/*<Service slug={slug} />*/}
     </SWRConfig>
   )
 }

@@ -1,0 +1,51 @@
+@import "styles/mixins";
+
+.root {
+  @include container;
+  @apply p-6 shadow-lg bg-$content-bg mt-4 rounded-lg text-$subtitle;
+}
+
+.summaryTop {
+  @apply flex items-start flex-col mb-8
+         tablet:(items-start flex-row justify-between);
+}
+
+.id {
+  @apply font-bold mb-2;
+  @include normalText;
+  span { @apply text-$shipCove; }
+}
+
+.description {
+  @include normalText;
+  @apply mb-8 text-$subtext tablet:mb-0;
+}
+
+.address {
+  @include smallText;
+  @apply text-$subtext;
+  p { @apply mb-1; }
+}
+
+.billingInformation {
+  @apply flex items-start mb-10 flex-wrap;
+}
+
+.billingLabel {
+  @include normalText;
+  @apply mb-2 text-$subtext tablet:(mb-4);
+}
+
+.dateInfo {
+  @apply mr-11 tablet:(mr-20);
+  h3 { @apply mb-8; }
+}
+
+.clientInfo {
+  @apply mb-8 tablet:(flex-1);
+  h3 { @apply mb-3; }
+}
+
+.emailInfo {
+  @apply basis-full tablet:(basis-1);
+}

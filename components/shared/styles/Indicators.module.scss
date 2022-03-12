@@ -1,0 +1,40 @@
+@import 'styles/mixins';
+
+.overdue,
+.draft,
+.paid,
+.pending {
+  @include normalText();
+  @apply flexbox h-10 min-w-26 font-bold rounded-md tablet:ml-8;
+  span {
+    @apply inline-block min-w-2 min-h-2 rounded-full mr-2;
+  }
+}
+
+.draft {
+  @apply bg-$draftBg text-$draftText;
+  span {
+    @apply bg-$draftText;
+  }
+}
+
+.paid {
+  @apply bg-$paidBg text-$paidText;
+  span {
+    @apply bg-$paidText;
+  }
+}
+
+.pending {
+  @apply bg-$pendingBg text-$pendingText;
+  span {
+    @apply bg-$pendingText;
+  }
+}
+
+.overdue {
+  @apply bg-$overdueBg text-$overdueText;
+  span {
+    @apply bg-$overdueText;
+  }
+}

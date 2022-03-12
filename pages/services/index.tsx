@@ -1,15 +1,14 @@
 import { NextPage } from "next";
-import { serviceRepo } from "queries";
-import { FallbackProps, IService } from "types";
+import { serviceRepo } from "services";
+import { FallbackProps, Product } from "types";
 import { SWRConfig } from "swr";
-import { ServiceList } from 'components/service'
 
-interface Props extends FallbackProps<Array<IService>> {}
+interface Props extends FallbackProps<Array<Product>> {}
 
 const ServicesPage: NextPage<Props> = ({ fallback }) => {
   return (
     <SWRConfig value={{ fallback }}>
-      <ServiceList />
+      <div>Will be in fallback mode for /api/services</div>
     </SWRConfig>
   )
 }

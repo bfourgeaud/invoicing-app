@@ -1,0 +1,22 @@
+@import "styles/mixins";
+
+.root {
+  @apply fixed z-50 w-full h-screen inset-0 bg-[rgba(0,0,0,0.45)] flexbox;
+}
+
+.modal {
+  @include container;
+  @apply bg-$content-bg max-w-[480px] rounded-lg p-8 tablet:(p-12);
+  h1 {
+    @apply text-xl mb-2 tablet:(text-[2rem]);
+  }
+}
+
+.text {
+  @include normalText;
+  @apply text-$subtext mb-4 leading-5;
+}
+
+.buttons {
+  @apply flex items-center justify-end space-x-4;
+}
