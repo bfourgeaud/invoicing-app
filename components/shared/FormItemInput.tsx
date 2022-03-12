@@ -14,11 +14,11 @@ interface FormItemInputProps {
 export const FormItemInput: React.FC<FormItemInputProps> = ({item, onChange, onDelete }) => {
   return (
     <div className={styles.item}>
-      <Input className={styles.nameInput} label="Item Name" name="name" placeholder="Product Name" value={item.name} onChange={onChange} />
+      <Input className={styles.nameInput} label="Item Name" name="name" placeholder="Product Name" value={item.name} id="name" onChange={onChange} />
       <div className={styles.priceInfo}>
-        <Input label="Qty." name="quantity" value={item.quantity} onChange={onChange} />
-        <Input label="Price" name="price" value={item.price} onChange={onChange} />
-        <Input label="Total" name="total" value={toMoney(item.total)} disabled onChange={() => {}} />
+        <Input type="number" label="Qty." name="quantity" value={item.quantity} id="quantity" onChange={onChange} />
+        <Input type="number" label="Price" name="price" value={item.price} id="price" onChange={onChange} />
+        <Input label="Total" name="total" value={toMoney(item.total)} id="total" disabled onChange={() => {}} />
         <button onClick={onDelete} className={styles.deleteBtn}>
           <Icon width={24} height={24} icon="ic:round-delete" />
         </button>

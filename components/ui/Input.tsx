@@ -37,7 +37,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({ label, cl
 
     return (
       <div className={[styles.root, className].join(" ")}>
-        <label htmlFor={props.name} className={styles.label}>
+        <label htmlFor={props.id} className={styles.label}>
           {label}
         </label>
         {invalid && <span className={styles.invalidLabel}>{"can't be empty"}</span>}

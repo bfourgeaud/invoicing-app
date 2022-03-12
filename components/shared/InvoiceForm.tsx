@@ -120,28 +120,28 @@ export const InvoiceForm: FC<InvoiceFormProps> = ({editing = false, invoice, can
             </h1>
 
             <p className={styles.colorLabel}>Bill From</p>
-            <Input label="Street" value={data.senderAddress.street} data-obj="senderAddress" name="street" onChange={onChange} required />
+            <Input label="Street" value={data.senderAddress.street} data-obj="senderAddress" name="street" id="sender-street" onChange={onChange} required />
             <div className={styles.inputGrid}>
-              <Input label="City" value={data.senderAddress.city} data-obj="senderAddress" name="city" onChange={onChange} required />
-              <Input label="Post Code" value={data.senderAddress.postCode} data-obj="senderAddress" name="postCode" onChange={onChange} required />
-              <Input label="Country" value={data.senderAddress.country} data-obj="senderAddress" name="country" onChange={onChange} required />
+              <Input label="City" value={data.senderAddress.city} data-obj="senderAddress" name="city" id="sender-city" onChange={onChange} required />
+              <Input label="Post Code" value={data.senderAddress.postCode} data-obj="senderAddress" name="postCode" id="sender-postCode" onChange={onChange} required />
+              <Input label="Country" value={data.senderAddress.country} data-obj="senderAddress" name="country" id="sender-country" onChange={onChange} required />
             </div>
 
             <p className={styles.colorLabel}>Bill To</p>
-            <Input label="Client's Name" value={data.clientName} name="clientName" onChange={onChange} required />
-            <Input label="Client's email" value={data.clientEmail} name="clientEmail" onChange={onChange} required />
-            <Input label="Street" value={data.clientAddress.street} data-obj="clientAddress" name="street" onChange={onChange} required />
+            <Input label="Client's Name" value={data.clientName} name="clientName" id="client-name" onChange={onChange} required />
+            <Input label="Client's email" value={data.clientEmail} name="clientEmail" id="client-email" onChange={onChange} required />
+            <Input label="Street" value={data.clientAddress.street} data-obj="clientAddress" name="street" id="client-street" onChange={onChange} required />
             <div className={styles.inputGrid}>
-              <Input label="City" value={data.clientAddress.city} data-obj="clientAddress" name="city" onChange={onChange} required />
-              <Input label="Post Code" value={data.clientAddress.postCode} data-obj="clientAddress" name="postCode" onChange={onChange} required />
-              <Input label="Country" value={data.clientAddress.country} data-obj="clientAddress" name="country" onChange={onChange} required />
+              <Input label="City" value={data.clientAddress.city} data-obj="clientAddress" name="city" id="client-city" onChange={onChange} required />
+              <Input label="Post Code" value={data.clientAddress.postCode} data-obj="clientAddress" name="postCode" id="client-postCode" onChange={onChange} required />
+              <Input label="Country" value={data.clientAddress.country} data-obj="clientAddress" name="country" id="client-postCode" onChange={onChange} required />
             </div>
 
             {/*<div className={styles.dateAndTerms}>
               <DatePicker {...datePickerProps} />
               <SelectDropdown {...paymentTermsProps} />
             </div>*/}
-            <Input label="Description" value={data.description} name="description" onChange={onChange} />
+            <Input label="Description" value={data.description} name="description" id="description" onChange={onChange} />
             <FormItemList items={items} setItems={setItems} />
 
             <div className={styles.grandTotal}>

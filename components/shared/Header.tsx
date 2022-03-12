@@ -6,8 +6,6 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import styles from "./styles/Header.module.scss";
-import Link from "next/link";
-
 
 interface HeaderProps {}
 
@@ -39,7 +37,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
       <HeaderLogo />
       <div className={styles.headerControls}>
         <div className={styles.themeBtnWrapper}>
-          <button className={styles.themeToggleBtn} onClick={toggleTheme}>
+          <button className={styles.themeToggleBtn} onClick={toggleTheme} aria-label="dark-mode">
             <Icon width={20} height={20} icon={`ion:${dark ? 'sunny' : 'moon'}`} />
           </button>
         </div>

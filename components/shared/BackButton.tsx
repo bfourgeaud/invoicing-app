@@ -17,6 +17,7 @@ export const BackButton: React.FC<BackButtonProps> = ({ onClick }) => {
         className={styles.backBtn}
         onClick={clickHandler}
         role="navigation"
+        aria-label="go-back"
       >
         <Icon width={20} height={20} icon="ic:round-chevron-left" />
         <span>Go back</span>

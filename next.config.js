@@ -2,6 +2,7 @@ const WindiCSSWebpackPlugin = require('windicss-webpack-plugin')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  productionBrowserSourceMaps: true,
   reactStrictMode: true,
   images: {
     domains: ['media.graphcms.com'],
