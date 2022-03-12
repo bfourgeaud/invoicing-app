@@ -2,18 +2,28 @@ import { Icon } from "@iconify/react";
 import Badge from "components/ui/Badge";
 import Image from "next/image";
 import Link from "next/link";
+import { MouseEventHandler } from "react";
 import { Client, ScreenType } from "types";
 import styles from './styles/ClientCard.module.scss'
 
 interface ClientCardProps {
   client: Client,
-  screenType: ScreenType
+  screenType?: ScreenType,
+  onSelect?: (e:Client) => void,
+  linkDisabled?: boolean
 }
 
-const ClientCard:React.FC<ClientCardProps> = ({ client, screenType}) => {
+const ClientCard:React.FC<ClientCardProps> = ({ client, linkDisabled=false, onSelect, ...props}) => {
+
+  const handleClick:MouseEventHandler<HTMLElement> = (e) => {
+    e.preventDefault()
+    console.log('CLICK')
+    if(linkDisabled && onSelect) onSelect(client)
+  }
+
   return (
-    <li className={styles.card}>
-      <Link href={`/clients/${client.id}`} passHref>
+    <li className={styles.card} onClick={handleClick}>
+      <Link href={linkDisabled ? '#' : `/clients/${client.id}`} passHref>
         <a>
           <div className={styles.cardHeader}>
             <div>

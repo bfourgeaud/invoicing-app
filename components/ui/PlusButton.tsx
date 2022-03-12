@@ -4,7 +4,7 @@ import styles from "./styles/PlusButton.module.scss"
 
 interface PlusButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  screenType: ScreenType;
+  screenType?: ScreenType;
   contentType: "Invoice" | "Client" | "Product";
 }
 

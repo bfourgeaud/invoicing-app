@@ -1,0 +1,9 @@
+.wrapper {
+  @apply relative;
+  .dropdown {
+    @apply absolute bg-$content-bg rounded-b-lg top-full left-0 right-0 flex flex-col p-6 pb-2 shadow-md z-20 max-h-64 overflow-auto;
+    ul {
+      @apply space-y-4;
+    }
+  }
+}
