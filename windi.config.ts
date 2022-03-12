@@ -28,9 +28,9 @@ export default defineConfig({
     'btn-red': 'bg-red-500 hover(bg-red-700) text-white',
     
     'btn': 'h-12 px-6 border-none transition-all duration-200 ease whitespace-nowrap font-bold text-xs leading-4 tracking-tight rounded-3xl',
-    'btn-purple' : 'bg-$purple text-white hover:bg-$heliotrope',
+    'btn-purple' : 'bg-[#644bc9] text-white hover:bg-$heliotrope',
     'btn-light': 'bg-[#f9fafe] text-$shipCove hover:bg-$selago',
-    'btn-dark': 'bg-[#373b53] text-$baliHai hover:bg-$vulcan',
+    'btn-dark': 'bg-[#373b53] text-[#c4cbf2] hover:bg-$vulcan',
     'btn-long': 'bg-[#f9fafe] text-$shipCove w-full'
   },
   theme: {

@@ -6,7 +6,7 @@
   --ebony: #252945;
   --selago: #dfe3fa;
   --baliHai: #888eb0;
-  --shipCove: #7e88c3;
+  --shipCove: #606896;
   --vulcan: #0c0e16;
   --burntSienna: #ec5757;
   --monaLisa: #ff9797;
@@ -35,10 +35,10 @@
   --draftText: #373b53;
   --draftBg: rgba(55,59,83,0.0571);
 
-  --paidText: #33d69f;
+  --paidText: #3e805b;
   --paidBg: rgba(51,214,159,0.0571);
 
-  --pendingText: var(--orange);
+  --pendingText: #a15c05;
   --pendingBg: rgba(255, 143, 0, 0.0571);
 
   --overdueText: #FA8072;
@@ -47,7 +47,7 @@
 
   /* Texts */
   --text: #374151;
-  --subtext: #7e88c3;
+  --subtext: var(--darkAccent);
 }
 
 [data-theme='dark'] {
