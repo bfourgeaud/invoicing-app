@@ -28,13 +28,13 @@ const ClientForm:React.FC<ClientFormProps> = ({editing = false, client, cancel, 
   const handleSave: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
 
-    if(!editing) {
+    if(!editing || !data.id) {
       add(data)
         .then(setData)
         .catch(err => alert(err.message))
         .finally(quitAndReset)
     } else {
-      update(data)
+      update(data as UpdateRequest<Client>)
       .then(setData)
       .catch(err => alert(err.message))
       .finally(cancel)

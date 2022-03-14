@@ -26,7 +26,7 @@ export type FilterType = {
 
 export type ClientState = 'ERROR' | "WARNING" | "OK"
 export interface Client {
-  id: string,
+  id?: string,
   firstname?: string,
   lastname?:string
   email: string,
@@ -49,9 +49,9 @@ export type Item = {
 export type ItemStatus = "DRAFT" | "PENDING" | "PAID" | "OVERDUE";
 
 export interface Invoice {
-  id: string;
+  id?: string;
   createdAt?: string;
-  invoiceNumber: string;
+  invoiceNumber?: string;
   paymentDue: string;
   description: string;
   paymentTerms: number;

@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useEffect, useMemo, useState } from "react";
-import { Address, APIResponse, Client, Invoice, Item } from "types";
+import { Address, APIResponse, Client, Invoice, Item, UpdateRequest } from "types";
 import { addDays, format } from "date-fns";
 import styles from "./styles/InvoiceForm.module.scss";
 import { emptyInvoice } from "lib/utils/emptyInvoice";
@@ -127,13 +127,13 @@ export const InvoiceForm: FC<InvoiceFormProps> = ({editing = false, invoice, can
   const handleSave: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
 
-    if(!editing) {
+    if(!editing || !data.id) {
       add(data)
         .then(setData)
         .catch(err => alert(err.message))
         .finally(quitAndReset)
     } else {
-      update(data)
+      update(data as UpdateRequest<Invoice>)
       .then(setData)
       .catch(err => alert(err.message))
       .finally(cancel)
