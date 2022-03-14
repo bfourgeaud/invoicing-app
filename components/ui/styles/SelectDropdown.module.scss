@@ -1,0 +1,34 @@
+@import 'styles/mixins';
+
+.root {
+  @apply relative mb-6;
+
+  label {
+    @include normalText;
+    @apply block mb-3;
+  }
+
+  input {
+    @include normalText;
+    @apply w-full h-12 px-5 font-bold rounded-lg border bg-$input-bg border-$input-border cursor-pointer
+            hover:(border-$purple)
+            focus:(outline-none border-$purple);
+  }
+
+  svg {
+    @apply pointer-events-none absolute top-1/2 right-[5%] transform -translate-y-1/2 -rotate-90;
+  }
+}
+
+.inputWrapper { @apply relative; }
+
+.dropdown {
+  @apply absolute top-[110%] z-2 w-full shadow-lg bg-$input-bg rounded-lg overflow-hidden;
+}
+
+.option {
+  @apply z-2 px-6 py-4 font-bold cursor-pointer
+         hover:(text-$purple)
+         last:(border-none);
+  @include normalText;
+}

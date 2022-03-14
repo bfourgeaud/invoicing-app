@@ -11,6 +11,7 @@ interface StatusBarProps {
   onClickEditing: () => void;
   onClickDelete: () => void;
   onClickPaid: () => void;
+  onClickPublish: () => void;
 }
 
 export const StatusBar: React.FC<StatusBarProps> = ({
@@ -19,6 +20,7 @@ export const StatusBar: React.FC<StatusBarProps> = ({
   onClickEditing,
   onClickDelete,
   onClickPaid,
+  onClickPublish
 }) => {
   const { dark } = useThemeContext();
   return (
@@ -33,6 +35,7 @@ export const StatusBar: React.FC<StatusBarProps> = ({
           onClickEditing={onClickEditing}
           onClickDelete={onClickDelete}
           onClickPaid={onClickPaid}
+          onClickPublish={onClickPublish}
         />
       )}
     </div>

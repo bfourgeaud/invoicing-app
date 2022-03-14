@@ -26,7 +26,7 @@ export type FilterType = {
 
 export type ClientState = 'ERROR' | "WARNING" | "OK"
 export interface Client {
-  id?: string,
+  id: string,
   firstname?: string,
   lastname?:string
   email: string,
@@ -49,9 +49,9 @@ export type Item = {
 export type ItemStatus = "DRAFT" | "PENDING" | "PAID" | "OVERDUE";
 
 export interface Invoice {
-  id?: string;
+  id: string;
   createdAt?: string;
-  invoiceNumber?: string;
+  invoiceNumber: string;
   paymentDue: string;
   description: string;
   paymentTerms: number;
@@ -86,7 +86,11 @@ export interface FallbackProps<T> {
   }
 }
 
-export type GET = <T>(url:string) => Promise<Required<T>>
-export type POST = <T>(url:string, body:Partial<T>) => Promise<Required<T>>
-export type PUT = <T>(url:string, body:Partial<T>) => Promise<Required<T>>
-export type DELETE = <T>(url:string) => Promise<Required<T>>
+export type APIResponse<T> = Required<T> & { id:string }
+export type UpdateRequest<T> = Partial<T> & { id:string }
+export type Error = { message: unknown }
+
+export type GET = <T>(url:string) => Promise<APIResponse<T>>
+export type POST = <T>(url:string, body:Omit<T, "id">) => Promise<APIResponse<T>>
+export type PUT = <T>(url:string, body:Omit<Partial<T>, "id">) => Promise<APIResponse<T>>
+export type DELETE = <T>(url:string) => Promise<APIResponse<T>>

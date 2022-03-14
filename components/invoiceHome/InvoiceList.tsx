@@ -1,5 +1,5 @@
 import { Spinner } from "components/ui/Spinner";
-import { useInvoices } from "lib/hooks/useInvoices";
+import { useInvoices } from "lib/database";
 import Image from "next/image";
 import { ItemStatus, ScreenType } from "types";
 import { InvoiceItem } from "./InvoiceItem";

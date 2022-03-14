@@ -4,8 +4,8 @@ import styles from "./styles/Input.module.scss"
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  label?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(({ label, className, ...props }, ref) => {
@@ -24,7 +24,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({ label, cl
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       invalidHandlers.off();
-      props.onChange(e);
+      props.onChange ? props.onChange(e) : null
     };
 
     const inputProps = {
@@ -37,9 +37,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({ label, cl
 
     return (
       <div className={[styles.root, className].join(" ")}>
-        <label htmlFor={props.id} className={styles.label}>
+        {label && <label htmlFor={props.id} className={styles.label}>
           {label}
-        </label>
+        </label>}
         {invalid && <span className={styles.invalidLabel}>{"can't be empty"}</span>}
         <input {...inputProps} aria-invalid={invalid} />
       </div>

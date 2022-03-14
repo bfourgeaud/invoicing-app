@@ -1,10 +1,8 @@
+import graphcms, { GraphcmsErrorResponse, parseError } from 'lib/helpers/graphcms'
+import createInvoiceNumber from 'lib/utils/createInvoiceNumber'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { invoiceService } from 'services'
-import { Invoice } from 'types'
-
-interface Error {
-  message: unknown
-}
+import { CREATE_INVOICE, GET_INVOICES, GET_INVOICE_NUMBERS } from 'lib/database/queries'
+import { Invoice, Error } from 'types'
 
 export default handler
 
@@ -19,16 +17,20 @@ function handler(req:NextApiRequest, res:NextApiResponse<Invoice | Array<Invoice
     }
 
     async function get() {
-        const invoices = await invoiceService.getAll();
+        const { invoices } = await graphcms(GET_INVOICES)
         return res.status(200).json(invoices);
     }
     
+    /* ATTENTION Create InvoiceNumber */
     async function create() {
         try {
-          const invoice = await invoiceService.create(req.body);
+          const { invoiceNumber:inv, ...data } = req.body // Make sure invoiceNumber is set here and not client side
+          const { invoices } = await graphcms(GET_INVOICE_NUMBERS)
+          const invoiceNumber = createInvoiceNumber(invoices.map((i:any) => i.invoiceNumber))
+          const { created:invoice } = await graphcms(CREATE_INVOICE, { data: {...data, invoiceNumber}, invoiceNumber})
           return res.status(200).json(invoice);
         } catch (error) {
-          return res.status(400).json({ message: error });
+          return res.status(400).json(parseError(error as GraphcmsErrorResponse));
         }
     }
 }

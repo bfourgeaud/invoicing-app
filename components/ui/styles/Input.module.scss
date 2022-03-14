@@ -1,7 +1,7 @@
 @import "styles/mixins";
 
 .input {
-  @apply w-full h-12 px-5 rounded-[0.25rem] border border-$input-border font-bold bg-$input-bg focus:(border-$purple);
+  @apply w-full h-12 px-5 rounded-[0.25rem] border border-$input-border font-bold bg-$input-bg focus:(border-$purple outline-none);
   @include normalText;
 }
 

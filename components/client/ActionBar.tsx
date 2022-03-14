@@ -1,6 +1,6 @@
 import { FilterDropdown } from "components/ui/FilterDropdown";
 import { PlusButton } from "components/ui/PlusButton";
-import { useClients } from "lib/hooks/useClients";
+import { useClients } from "lib/database";
 import { Filters, FilterType, ScreenType } from "types";
 import styles from "./styles/ActionBar.module.scss"
 

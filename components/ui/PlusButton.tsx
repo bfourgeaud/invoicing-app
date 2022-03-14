@@ -10,7 +10,7 @@ interface PlusButtonProps
 
 export const PlusButton: React.FC<PlusButtonProps> = ({ screenType, contentType, ...props }) => {
   return (
-    <button className={styles.root} {...props}>
+    <button type="button" className={styles.root} {...props}>
       <span>
         <Icon width={20} height={20} icon="ic:round-add" />
       </span>

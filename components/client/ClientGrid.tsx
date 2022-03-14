@@ -1,5 +1,5 @@
 import { Spinner } from 'components/ui/Spinner';
-import { useClients } from 'lib/hooks/useClients';
+import { useClients } from "lib/database";
 import { ClientState, ScreenType } from 'types';
 import Image from "next/image";
 import ClientCard from './ClientCard';

@@ -1,24 +1,20 @@
-import { useScreenContext } from "lib/context/ScreenContext";
-import { useClients } from "lib/hooks/useClients";
+import { useClients } from "lib/database";
 import { emptyClient } from "lib/utils/emptyClient";
 import { ChangeEvent, useState } from "react";
-import { Client } from "types";
+import { APIResponse, Client, UpdateRequest } from "types";
 import styles from './styles/ClientForm.module.scss'
-import ModalShadow from "../ui/ModalShadow";
-import { BackButton } from "./BackButton";
 import { Input } from "components/ui/Input";
 import FormDrawer from "components/ui/FormDrawer";
 
 interface ClientFormProps {
   editing?: boolean;
-  client?: Required<Client>;
+  client?: APIResponse<Client>;
   show: boolean;
   cancel: () => void;
 }
 
 const ClientForm:React.FC<ClientFormProps> = ({editing = false, client, cancel, show}) => {
-  const { screenType } = useScreenContext();
-  const { clients, add, update } = useClients()
+  const { add, update } = useClients()
   const [data, setData] = useState<Client>(client || emptyClient());
   
   const handleCancel = () => {
@@ -35,12 +31,12 @@ const ClientForm:React.FC<ClientFormProps> = ({editing = false, client, cancel, 
     if(!editing) {
       add(data)
         .then(setData)
-        .catch(err => alert(err))
+        .catch(err => alert(err.message))
         .finally(quitAndReset)
     } else {
       update(data)
       .then(setData)
-      .catch(err => alert(err))
+      .catch(err => alert(err.message))
       .finally(cancel)
     }
   }

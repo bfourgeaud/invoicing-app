@@ -1,35 +1,34 @@
 import { ChangeEvent, FC, useEffect, useMemo, useState } from "react";
-import { Address, Client, Invoice, Item } from "types";
+import { Address, APIResponse, Client, Invoice, Item } from "types";
 import { addDays, format } from "date-fns";
 import styles from "./styles/InvoiceForm.module.scss";
 import { emptyInvoice } from "lib/utils/emptyInvoice";
 import { Input } from "components/ui/Input";
-import { useInvoices } from "lib/hooks/useInvoices";
-import createInvoiceNumber from "lib/utils/createInvoiceNumber";
+import { useInvoices, useClients } from "lib/database";
 import { FormItemList } from "./FormItemList";
 import toMoney from "lib/utils/toMoney";
 import FormDrawer from "components/ui/FormDrawer";
-import { useClients } from "lib/hooks/useClients";
 import ClientCard from "components/client/ClientCard";
 import { SearchField } from "components/ui/SearchField";
-import { Icon } from "@iconify/react";
 import ClientForm from "./ClientForm";
 import { useToggle } from "lib/hooks/useToggle";
+import { DatePicker } from "components/ui/DatePicker";
+import { SelectDropdown } from "components/ui/SelectDropdown";
 
 interface InvoiceFormProps {
   editing?: boolean;
-  invoice?: Required<Invoice>;
+  invoice?: APIResponse<Invoice>;
   show: boolean;
   cancel: () => void;
 }
 
 export const InvoiceForm: FC<InvoiceFormProps> = ({editing = false, invoice, cancel, show}) => {
-  const { invoices, add, update } = useInvoices()
-
-  
-
+  const { add, update } = useInvoices()
   const [data, setData] = useState<Invoice>(invoice || emptyInvoice());
   const [items, setItems] = useState<Array<Item>>( invoice?.items || []);
+
+  // Handle prop changed
+  useEffect(() => { setData(invoice || emptyInvoice()) }, [invoice])
 
   /* START Search Handler */
   const { clients } = useClients()
@@ -60,20 +59,40 @@ export const InvoiceForm: FC<InvoiceFormProps> = ({editing = false, invoice, can
   /* END Search Handler */
 
   useEffect(() => {
+    if(!clients.length) return
+    const sender = clients.find(cl => cl.isSelf)
+    if(sender) {
+      setData(prev => ({
+        ...prev,
+        senderAddress: sender?.address as Address
+      }))
+    }
+  }, [clients])
+
+  useEffect(() => {
     if(data.clientName !== clientSearchTerm) {
       setFound(false)
     }
-  }, [data,clientSearchTerm])
+  }, [data, clientSearchTerm])
 
   const ResetFound = () => {
-    setClientSearchTerm("")
     setData(prev => ({
       ...prev,
       clientName: '',
       clientEmail: '',
       clientAddress: emptyInvoice().clientAddress
     }))
+    clearFound()
+  }
+
+  const clearFound = () => {
+    setClientSearchTerm("")
     setFound(false)
+  }
+
+  const clearData = () => {
+    setItems([]);
+    setData(emptyInvoice());
   }
 
   /* Update InvoiceItems Total */
@@ -98,49 +117,47 @@ export const InvoiceForm: FC<InvoiceFormProps> = ({editing = false, invoice, can
 
   /* HANDLERS */
   const handlePaymentTermsChange = (newTerms: number) => {
+    console.log("changed", newTerms)
     setData((prev) => ({
       ...prev,
       paymentTerms: newTerms,
     }));
   };
 
-  const handleCancel = () => {
-    // reset data and cancel
-    if (invoice) {
-      setData(invoice);
-    }
-    cancel();
-  };
-
   const handleSave: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
 
     if(!editing) {
-      let invoiceNumber = createInvoiceNumber(invoices.map(i => i.invoiceNumber))
-      add({...data, state: "PENDING", invoiceNumber})
+      add(data)
         .then(setData)
-        .catch(err => alert(err))
+        .catch(err => alert(err.message))
         .finally(quitAndReset)
     } else {
-      update({...data, state: "PENDING"})
+      update(data)
       .then(setData)
-      .catch(err => alert(err))
+      .catch(err => alert(err.message))
       .finally(cancel)
     }
   }
 
   const handleSaveAsDraft = () => {
-    if(editing || data.invoiceNumber) return
-    let invoiceNumber = createInvoiceNumber(invoices.map(i => i.invoiceNumber))
-    add({...data, state: "DRAFT", invoiceNumber})
+    if(editing) return
+    add({...data, state: "DRAFT"})
       .then(setData)
       .catch(err => alert(err))
       .finally(quitAndReset)
   }
 
+  const handleCancel = () => {
+    // reset data and cancel
+    setData(invoice || emptyInvoice());
+    clearFound()
+    cancel();
+  };
+
   const quitAndReset = () => {
-    setData(emptyInvoice());
-    setItems([{ name: "New Item", quantity: 1, total: 0, price: 0 }]);
+    clearFound()
+    clearData()
     cancel();
   };
   /* END OF HANDLERS */
@@ -160,6 +177,13 @@ export const InvoiceForm: FC<InvoiceFormProps> = ({editing = false, invoice, can
       }
     ))
   }
+
+  const paymentTermsOptions = [
+    { label: "Net 1 Day", value: 1 },
+    { label: "Net 7 Days", value: 7 },
+    { label: "Net 14 Days", value: 14 },
+    { label: "Net 30 Days", value: 30 },
+  ]
   
   return (
     <>
@@ -169,37 +193,24 @@ export const InvoiceForm: FC<InvoiceFormProps> = ({editing = false, invoice, can
             {editing && invoice? (<>Edit <span>#</span>{invoice.invoiceNumber}</>) : ("New Invoice")}
           </h1>
 
-          {!found && <SearchField value={clientSearchTerm} suggestions={filteredClients} found={found} label="Client" onChange={(e) => setClientSearchTerm(e.target.value)} onNew={modalHandler.on}/>}
-          {found &&
-            <div className="inline-flex items-center space-x-2 py-2 px-4 my-4 bg-$content-bg rounded-full cursor-pointer">
-              <p>{data.clientName}</p>
-              <div onClick={ResetFound} className="text-red-300 hover:text-red-500"><Icon icon="ic:round-cancel" /></div>
-            </div>
-          }
+          <p className={styles.colorLabel}>Client</p>
+          <SearchField
+            placeholder="Search Client ..."
+            value={clientSearchTerm}
+            suggestions={filteredClients}
+            onChange={(e) => setClientSearchTerm(e.target.value)}
+            onNew={modalHandler.on}
+            found={found}
+            foundText={`${data.clientName}`}
+            onReset={ResetFound}
+          />
 
-          <p className={styles.colorLabel}>Bill From</p>
-          <Input label="Street" value={data.senderAddress.street} data-obj="senderAddress" name="street" id="sender-street" onChange={onChange} required />
-          <div className={styles.inputGrid}>
-            <Input label="City" value={data.senderAddress.city} data-obj="senderAddress" name="city" id="sender-city" onChange={onChange} required />
-            <Input label="Post Code" value={data.senderAddress.postCode} data-obj="senderAddress" name="postCode" id="sender-postCode" onChange={onChange} required />
-            <Input label="Country" value={data.senderAddress.country} data-obj="senderAddress" name="country" id="sender-country" onChange={onChange} required />
+          <div className={styles.dateAndTerms}>
+            <SelectDropdown label="Payment Terms" options={paymentTermsOptions} name="terms" value={data.paymentTerms} onChange={handlePaymentTermsChange}/>
+            <DatePicker label="Due Date" value={data.paymentDue} setDate={(date:string) => { setData(prev => ({...prev, paymentDue: date})) }} disabled={editing} />
           </div>
 
-          <p className={styles.colorLabel}>Bill To</p>
-          <Input label="Client's Name" value={data.clientName} name="clientName" id="client-name" onChange={onChange} required />
-          <Input label="Client's email" value={data.clientEmail} name="clientEmail" id="client-email" onChange={onChange} required />
-          <Input label="Street" value={data.clientAddress.street} data-obj="clientAddress" name="street" id="client-street" onChange={onChange} required />
-          <div className={styles.inputGrid}>
-            <Input label="City" value={data.clientAddress.city} data-obj="clientAddress" name="city" id="client-city" onChange={onChange} required />
-            <Input label="Post Code" value={data.clientAddress.postCode} data-obj="clientAddress" name="postCode" id="client-postCode" onChange={onChange} required />
-            <Input label="Country" value={data.clientAddress.country} data-obj="clientAddress" name="country" id="client-country" onChange={onChange} required />
-          </div>
-
-          {/*<div className={styles.dateAndTerms}>
-            <DatePicker {...datePickerProps} />
-            <SelectDropdown {...paymentTermsProps} />
-          </div>*/}
-          <Input label="Description" value={data.description} name="description" id="description" onChange={onChange} />
+          <Input label="Description" value={data.description} name="description" id="description" onChange={onChange} role="presentation" autoComplete="off"/>
           <FormItemList items={items} setItems={setItems} />
 
           <div className={styles.grandTotal}>

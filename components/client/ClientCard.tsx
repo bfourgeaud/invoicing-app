@@ -17,7 +17,6 @@ const ClientCard:React.FC<ClientCardProps> = ({ client, linkDisabled=false, onSe
 
   const handleClick:MouseEventHandler<HTMLElement> = (e) => {
     e.preventDefault()
-    console.log('CLICK')
     if(linkDisabled && onSelect) onSelect(client)
   }
 

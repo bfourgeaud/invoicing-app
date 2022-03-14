@@ -1,19 +1,19 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { Invoice } from "types";
+import { Invoice, UpdateRequest } from "types";
 import { useScreenContext } from "lib/context/ScreenContext";
 import { useToggle } from "lib/hooks/useToggle";
 import { InvoiceForm } from "components/shared/InvoiceForm";
 import styles from "styles/InvoicePage.module.scss";
 import { BackButton } from "components/shared/BackButton";
-import { useInvoices } from "lib/hooks/useInvoices";
+import { useInvoices } from "lib/database";
 import { StatusBar } from "components/invoice/StatusBar";
 import { Summary } from "components/invoice/Summary";
 import { BottomControls } from "components/invoice/BottomControls";
 import { DeleteModal } from "components/ui/DeleteModal";
 
-const InvoicePage: React.FC = () => {
+const InvoicePage: React.FC = ({}) => {
   const router = useRouter();
   const { id } = router.query
 
@@ -23,20 +23,15 @@ const InvoicePage: React.FC = () => {
   const [deleting, deletingHandlers] = useToggle(false);
   const { screenType } = useScreenContext();
 
-  useEffect(() => {
-    setInvoice(invoices.find(i => i.id === id))
-  }, [invoices, id])
+  useEffect(() => setInvoice(invoices.find(i => i.id === id)), [invoices, id])
 
   const handleDeletion = (id: string) => {
     _delete(id);
     router.replace("/");
   };
 
-  const handleMarkAsPaid = () => {
-    if (invoice && invoice.id) {
-      update({ ...invoice, state: "PAID" })
-    }
-  };
+  const handleMarkAsPaid = () => update({ ...invoice, state: "PAID" } as UpdateRequest<Invoice>)
+  const handlePublish = () => update({ ...invoice, state: "PENDING" } as UpdateRequest<Invoice>)
 
   return (
     <main role="main" className={styles.main} >
@@ -59,6 +54,7 @@ const InvoicePage: React.FC = () => {
           onClickEditing={setEditing.toggle}
           onClickDelete={deletingHandlers.on}
           onClickPaid={handleMarkAsPaid}
+          onClickPublish={handlePublish}
         />
       )}
       {invoice && <Summary invoice={invoice} />}
@@ -67,6 +63,7 @@ const InvoicePage: React.FC = () => {
           onClickEditing={setEditing.toggle}
           onClickDelete={deletingHandlers.on}
           onClickPaid={handleMarkAsPaid}
+          onClickPublish={handlePublish}
           status={invoice.state}
         />
       )}

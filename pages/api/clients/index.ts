@@ -1,10 +1,7 @@
+import graphcms, { parseError, GraphcmsErrorResponse } from 'lib/helpers/graphcms'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { clientService } from 'services'
-import { Client } from 'types'
-
-interface Error {
-  message: unknown
-}
+import { CREATE_CLIENT, GET_CLIENTS } from 'lib/database/queries'
+import { Client, Error } from 'types'
 
 export default handler
 
@@ -19,16 +16,17 @@ function handler(req:NextApiRequest, res:NextApiResponse<Client | Array<Client> 
     }
 
     async function get() {
-        const clients = await clientService.getAll();
+      const { clients } = await graphcms(GET_CLIENTS)
         return res.status(200).json(clients);
     }
     
     async function create() {
         try {
-          const client = await clientService.create(req.body);
+          const { email } = req.body
+          const { created:client } = await graphcms(CREATE_CLIENT, { data:req.body, email })
           return res.status(200).json(client);
         } catch (error) {
-          return res.status(400).json({ message: error });
+          return res.status(400).json(parseError(error as GraphcmsErrorResponse));
         }
     }
 }

@@ -1,0 +1,52 @@
+@import 'styles/mixins';
+
+.root {
+  @apply relative mb-6;
+  label {
+    @apply block mb-3;
+    @include normalText;
+  }
+
+  input[type="text"] {
+    @apply h-12 w-full rounded-md border border-$input-border bg-$input-bg px-5 font-bold cursor-pointer
+           focus:(border-$purple outline-none);
+    @include normalText;
+    &:disabled {
+     @apply disabled:(text-$disabled cursor-not-allowed);
+      & + .calendarIcon path { @apply opacity-50; }
+    }
+  }
+}
+
+.calendarIcon {
+  @apply absolute right-[5%] top-1/2 transform -translate-y-1/2 pointer-events-none text-$shipCove;
+}
+
+.inputWrapper { @apply relative; }
+
+.picker {
+  @apply absolute top-[105%] left-0 max-w-[240px] w-full bg-$content-bg min-h-[243px] text-center p-6 rounded-lg z-20 shadow-lg;
+}
+
+.pickerNav {
+  @apply flex items-center justify-between mb-4;
+  p {
+    @include normalText;
+    @apply font-bold;
+  }
+  button {
+    @apply p-2 border-none bg-none;
+  }
+}
+
+.days {
+  @apply grid grid-cols-7 gap-4 font-bold;
+  p {
+    @include normalText;
+    @apply cursor-pointer hover:text-$purple;
+  }
+}
+
+.selectedDay {
+  @apply text-$purple;
+}
